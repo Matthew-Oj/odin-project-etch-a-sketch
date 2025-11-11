@@ -1,4 +1,4 @@
-# Etch-A-Sketch (The Odin Project)
+# Etch-A-Sketch 
 
 This project is part of **[The Odin Project](https://www.theodinproject.com/)** curriculum — a hands-on exercise to practice **DOM manipulation** and **JavaScript fundamentals**.  
 
