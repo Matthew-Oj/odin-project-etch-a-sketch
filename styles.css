@@ -1,0 +1,15 @@
+
+.container {
+    display: flex;
+}
+
+.container div {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border: 1px solid red;
+}
+
+.col:hover {
+    background-color: purple;
+}
