@@ -1,5 +1,6 @@
 const container = document.querySelector(".container");
 var defaultSize = 16;
+let currentSize = defaultSize;
 
 function makeGrid(size = 16) {
     container.innerHTML = "";
@@ -22,30 +23,34 @@ function clearContainer() {
     }
 }
 
-function createNewGrid(num = globalNum) {
+function createNewGrid() {
     clearContainer();
-    makeGrid(num);
+    makeGrid(currentSize);
     draw();
 }
 
-function numberOfSquares() {
+function promptSize() {
     let newSize = prompt("Enter grid size (1-100):");
     newSize = parseInt(newSize);
     if (newSize > 0 && newSize <= 100) {
         makeGrid(newSize);
+        currentSize = newSize;
     } else {
         alert('Please enter a number between 1 and 100.');
     }
-    createNewGrid(defaultSize);
+    createNewGrid(newSize);
+
 }
 
-// clear grid function
 function clearGrid() {
     createNewGrid();
-    draw();
 }
 
 function draw() {
+    // if 
+
+
+
     const columns = document.querySelectorAll(".col");
         columns.forEach(col => {
             col.addEventListener("mouseenter", event => {
