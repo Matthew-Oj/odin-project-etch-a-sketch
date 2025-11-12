@@ -1,6 +1,11 @@
 const container = document.querySelector(".container");
-var defaultSize = 16;
+
+const defaultSize = 16;
+const defaultColor = "black";
+
 let currentSize = defaultSize;
+let color = defaultColor; 
+let rainbowMode = false; 
 
 function makeGrid(size = 16) {
     container.innerHTML = "";
@@ -17,49 +22,55 @@ function makeGrid(size = 16) {
     }
 }
 
-function clearContainer() {
-    while (container.firstChild) {
-        container.removeChild(container.firstChild);
-    }
-}
-
-function createNewGrid() {
-    clearContainer();
-    makeGrid(currentSize);
-    draw();
-}
-
 function promptSize() {
     let newSize = prompt("Enter grid size (1-100):");
     newSize = parseInt(newSize);
     if (newSize > 0 && newSize <= 100) {
-        makeGrid(newSize);
         currentSize = newSize;
     } else {
         alert('Please enter a number between 1 and 100.');
+        return;
     }
-    createNewGrid(newSize);
-
-}
-
-function clearGrid() {
     createNewGrid();
 }
 
-function draw() {
-    // if 
-
-
-
-    const columns = document.querySelectorAll(".col");
-        columns.forEach(col => {
-            col.addEventListener("mouseenter", event => {
-                event.target.style.backgroundColor = "black";
-            });
-        });
+function createNewGrid() {
+    color = defaultColor;
+    rainbowMode = false;
+    makeGrid(currentSize);
 }
 
+function setRainbowMode() {
+    rainbowMode = true;
+}
 
-// init
-makeGrid();
-draw();
+function setDarkMode() {
+    rainbowMode = false;
+    color = "grey";
+}
+
+function clearGrid() {
+    color = defaultColor;
+    rainbowMode = false;
+    createNewGrid();
+}
+
+function getRandomColor() {
+    let r = Math.floor(Math.random() * 255) + 1;
+    let g = Math.floor(Math.random() * 255) + 1;
+    let b = Math.floor(Math.random() * 255) + 1;
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+container.addEventListener("mouseenter", function(e) {
+    if (e.target && e.target.classList.contains("col")) {
+        if (rainbowMode) {
+            e.target.style.backgroundColor = getRandomColor();
+        } else {
+            e.target.style.backgroundColor = color;
+        }
+    }
+}, true); 
+
+
+createNewGrid();
