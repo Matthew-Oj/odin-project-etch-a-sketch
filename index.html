@@ -7,7 +7,12 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <input id="square-num" type="button" value="NEW SKETCH PAD" onclick="numberOfSquares();" />
+    <div class="controls">
+        <input type="button" value="New Grid" onclick="promptSize();" />
+        <input type="button" value="Rainbow Mode" />
+        <input type="button" value="Dark Mode" />
+        <input type="button" value="Clear" onclick="clearGrid();" />
+    </div>
     <div class="container"></div>
     <script src="index.js"></script>
 </body>

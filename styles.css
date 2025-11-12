@@ -1,15 +1,44 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+input[type="button"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #333;
+    color: #fff;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+input[type="button"]:hover {
+    background: #555;
+}
 
 .container {
     display: flex;
+    flex-wrap: wrap;
+    width: 960px;
+    height: 960px;
+    border: 2px solid black;
+    background: white;
 }
 
 .container div {
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    border: 1px solid red;
-}
-
-.col:hover {
-    background-color: purple;
+    border: 1px solid #eee;
+    box-sizing: border-box;
 }

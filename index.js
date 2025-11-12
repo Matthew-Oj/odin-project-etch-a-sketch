@@ -1,44 +1,60 @@
-// global vars
 const container = document.querySelector(".container");
+var defaultSize = 16;
 
 function makeGrid(size = 16) {
-    // loop row div horizontally stack
-    for (let i = 0; i < size; i++) {
-        const row = document.createElement("div");
-        row.className = "row";
-        container.appendChild(row);
-    
-    // each row div has a column div (flexbox css)
-    for (let j = 0; j < size; j++) {
+    container.innerHTML = "";
+    const squareSize = 960 / size;
+    for (let i = 0; i < size * size; i++) {
         const col = document.createElement("div");
         col.className = "col";
-        row.appendChild(col);
-        }
+        col.style.width = `${squareSize}px`;
+        col.style.height = `${squareSize}px`;
+        col.style.border = "1px solid #eee";
+        col.style.boxSizing = "border-box";
+        col.style.backgroundColor = "white";
+        container.appendChild(col);
     }
 }
 
-function numberOfSquares() {
-    // prompt 
-    let num = prompt("Enter number of squares");
-
-    // convert 
-    num = parseInt(num); 
-
-    // max 64
-    if (num > 64) {
-        num = 64;
-    }
-
-    // clear dom
+function clearContainer() {
     while (container.firstChild) {
         container.removeChild(container.firstChild);
     }
-
-    // call make grid func
-    makeGrid(num);
 }
 
+function createNewGrid(num = globalNum) {
+    clearContainer();
+    makeGrid(num);
+    draw();
+}
+
+function numberOfSquares() {
+    let newSize = prompt("Enter grid size (1-100):");
+    newSize = parseInt(newSize);
+    if (newSize > 0 && newSize <= 100) {
+        makeGrid(newSize);
+    } else {
+        alert('Please enter a number between 1 and 100.');
+    }
+    createNewGrid(defaultSize);
+}
+
+// clear grid function
+function clearGrid() {
+    createNewGrid();
+    draw();
+}
+
+function draw() {
+    const columns = document.querySelectorAll(".col");
+        columns.forEach(col => {
+            col.addEventListener("mouseenter", event => {
+                event.target.style.backgroundColor = "black";
+            });
+        });
+}
 
 
 // init
 makeGrid();
+draw();
