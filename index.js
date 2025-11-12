@@ -6,6 +6,7 @@ const defaultColor = "black";
 let currentSize = defaultSize;
 let color = defaultColor; 
 let rainbowMode = false; 
+let darkMode = false; 
 
 function makeGrid(size = 16) {
     container.innerHTML = "";
@@ -18,6 +19,7 @@ function makeGrid(size = 16) {
         col.style.border = "1px solid #eee";
         col.style.boxSizing = "border-box";
         col.style.backgroundColor = "white";
+        col.dataset.darkness = "0"; 
         container.appendChild(col);
     }
 }
@@ -37,21 +39,25 @@ function promptSize() {
 function createNewGrid() {
     color = defaultColor;
     rainbowMode = false;
+    darkMode = false;
     makeGrid(currentSize);
 }
 
 function setRainbowMode() {
     rainbowMode = true;
+    darkMode = false;
 }
 
 function setDarkMode() {
     rainbowMode = false;
-    color = "grey";
+    darkMode = true;
+    color = "grey"; 
 }
 
 function clearGrid() {
     color = defaultColor;
     rainbowMode = false;
+    darkMode = false;
     createNewGrid();
 }
 
@@ -62,15 +68,27 @@ function getRandomColor() {
     return `rgb(${r}, ${g}, ${b})`;
 }
 
+function darkenSquare(square) {
+    let darkness = parseInt(square.dataset.darkness);
+    if (darkness < 100) {
+        darkness += 10; 
+        square.dataset.darkness = darkness;
+        const shade = 255 - Math.round((darkness / 100) * 255);
+        square.style.backgroundColor = `rgb(${shade}, ${shade}, ${shade})`;
+    }
+}
+
+
 container.addEventListener("mouseenter", function(e) {
     if (e.target && e.target.classList.contains("col")) {
         if (rainbowMode) {
             e.target.style.backgroundColor = getRandomColor();
+        } else if (darkMode) {
+            darkenSquare(e.target);
         } else {
             e.target.style.backgroundColor = color;
         }
     }
-}, true); 
-
+}, true);
 
 createNewGrid();
